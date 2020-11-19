@@ -1,30 +1,64 @@
-session_prefix="nvim-session-"
-detach_key="^d"
+session_prefix="nvim-"
+detach_key="^\\"
 
+# List all nvim sessions
 if [ $# -gt 0 ] && [ "$1" = list ]
 then
   abduco -l | grep "$session_prefix"
+
+# Attach to existent session
 elif [ $# -gt 1 ] && [ "$1" = attach ]
 then
-  abduco -e '$detach_key' -A "$2"
-elif [ $# -gt 0 ] && [ "$1" = new ]
+  abduco -e "$detach_key" -a "$2"
+
+# Create new session
+elif [ $# -gt 0 ] && [ "$1" = new ] 
 then
-  id=$(date +%s)
+  if "$2" == ""
+  then
+      id=$(date +%s)
+  else
+      id="$2"
+  fi
   server_file="$PREFIX/tmp/vim-server-$id"
   session_name="$session_prefix$id"
   if echo "$VMUX_EDITOR" | grep -v nvim >/dev/null
   then
     server_file="$session_name"
     server_options="--servername $server_file"
-    vmux_server_file=$server_file abduco -e '$detach_key' -A "$session_name" \
+    vmux_server_file=$server_file abduco -e "$detach_key" -A "$session_name" \
                      $VMUX_EDITOR --cmd "let g:confirm_quit_nomap = 0" \
                      --servername $server_file
   else
-    vmux_server_file=$server_file abduco -e '^detach_key' -A "$session_name" \
+    vmux_server_file=$server_file abduco -e "$detach_key" -A "$session_name" \
                      $VMUX_EDITOR --cmd "let g:confirm_quit_nomap = 0" \
                      --cmd "let g:server_addr = serverstart('$server_file')"
   fi
-    
-else
+
+# Show minimal help
+elif [ $# -gt 0 ] && [ "$1" = help ] 
+then
   echo "please provide an action (new|attach|list)"
+  
+else
+  if [ -z "$1" ]
+  then
+      id=$(date +%s)
+  else
+      id="$1"
+  fi
+  server_file="$PREFIX/tmp/vim-server-$id"
+  session_name="$session_prefix$id"
+  if echo "$VMUX_EDITOR" | grep -v nvim >/dev/null
+  then
+    server_file="$session_name"
+    server_options="--servername $server_file"
+    vmux_server_file=$server_file abduco -e "$detach_key" -A "$session_name" \
+                     $VMUX_EDITOR --cmd "let g:confirm_quit_nomap = 0" \
+                     --servername $server_file
+  else
+    vmux_server_file=$server_file abduco -e "$detach_key" -A "$session_name" \
+                     $VMUX_EDITOR --cmd "let g:confirm_quit_nomap = 0" \
+                     --cmd "let g:server_addr = serverstart('$server_file')"
+  fi
 fi
