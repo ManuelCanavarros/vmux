@@ -1,4 +1,4 @@
-export PATH="$PATH:$(dirname "$0")"
+export PATH="$PATH:$(dirname "$BASH_SOURCE")"
 if [ $# -gt 0 ]
 then
   VMUX_EDITOR="$1"

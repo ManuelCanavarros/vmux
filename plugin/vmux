@@ -1,24 +1,26 @@
 session_prefix="nvim-session-"
+detach_key="^d"
+
 if [ $# -gt 0 ] && [ "$1" = list ]
 then
   abduco -l | grep "$session_prefix"
 elif [ $# -gt 1 ] && [ "$1" = attach ]
 then
-  abduco -e '^g' -A "$2"
+  abduco -e '$detach_key' -A "$2"
 elif [ $# -gt 0 ] && [ "$1" = new ]
 then
   id=$(date +%s)
-  server_file="/tmp/vim-server-$id"
+  server_file="$PREFIX/tmp/vim-server-$id"
   session_name="$session_prefix$id"
   if echo "$VMUX_EDITOR" | grep -v nvim >/dev/null
   then
     server_file="$session_name"
     server_options="--servername $server_file"
-    vmux_server_file=$server_file abduco -e '^g' -A "$session_name" \
+    vmux_server_file=$server_file abduco -e '$detach_key' -A "$session_name" \
                      $VMUX_EDITOR --cmd "let g:confirm_quit_nomap = 0" \
                      --servername $server_file
   else
-    vmux_server_file=$server_file abduco -e '^g' -A "$session_name" \
+    vmux_server_file=$server_file abduco -e '^detach_key' -A "$session_name" \
                      $VMUX_EDITOR --cmd "let g:confirm_quit_nomap = 0" \
                      --cmd "let g:server_addr = serverstart('$server_file')"
   fi
