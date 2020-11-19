@@ -27,11 +27,11 @@ then
     server_file="$session_name"
     server_options="--servername $server_file"
     vmux_server_file=$server_file abduco -e "$detach_key" -A "$session_name" \
-                     $VMUX_EDITOR --cmd "let g:confirm_quit_nomap = 0" \
+                     $VMUX_EDITOR --cmd "let g:vmux_active_session= 1" \
                      --servername $server_file
   else
     vmux_server_file=$server_file abduco -e "$detach_key" -A "$session_name" \
-                     $VMUX_EDITOR --cmd "let g:confirm_quit_nomap = 0" \
+                     $VMUX_EDITOR --cmd "let g:vmux_active_session = 1" \
                      --cmd "let g:server_addr = serverstart('$server_file')"
   fi
 
@@ -54,11 +54,11 @@ else
     server_file="$session_name"
     server_options="--servername $server_file"
     vmux_server_file=$server_file abduco -e "$detach_key" -A "$session_name" \
-                     $VMUX_EDITOR --cmd "let g:confirm_quit_nomap = 0" \
+                     $VMUX_EDITOR --cmd "let g:vmux_active_session = 1" \
                      --servername $server_file
   else
     vmux_server_file=$server_file abduco -e "$detach_key" -A "$session_name" \
-                     $VMUX_EDITOR --cmd "let g:confirm_quit_nomap = 0" \
+                     $VMUX_EDITOR --cmd "let g:vmux_active_session = 1" \
                      --cmd "let g:server_addr = serverstart('$server_file')"
   fi
 fi
