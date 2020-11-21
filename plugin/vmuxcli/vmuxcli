@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# set -e
+set -e
 export VMUXCLI_WORKDIR=$(cd $(dirname $0) && pwd)
 
 cli_help(){
