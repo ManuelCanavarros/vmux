@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# set -e
+export VMUXCLI_WORKDIR=$(cd $(dirname $0) && pwd)
+
+cli_help(){
+    cli_name=${0##*/}
+    echo "
+    $cli_name
+    NVIM + ABDUCO wrapper for nvim multiplezer
+    Version: $(cat $VMUXCLI_WORKDIR/VERSION)
+
+    Usage: 
+    $cli_name [session name]      Start a new session or attach to existent one
+    $cli_name [command] [options]
+
+    Commands:
+        -n, --new       Start a new session and jump to it
+        -a, --attach    Attach to an existent session by name
+        -ls, --list     List all sessions
+        -k, -kill       Kill session by name
+        -h, --help      Display this message
+
+    Examples:
+        vmux django     Start a new session called django if one with this name
+                        does not exist yet
+        vmux -n test    Start a new session called test if session name is
+                        available
+    "
+    exit 1
+}
+
+case "$1" in
+    --help|-h)
+        cli_help
+        ;;
+    "")
+        cli_help
+        ;;
+    *)
+        "$VMUXCLI_WORKDIR/commands/create_or_attach" $1
+esac
+
