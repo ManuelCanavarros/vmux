@@ -10,3 +10,9 @@ get_all_session(){
         VMUX_SESSIONS+=${sessions_long[i]:${#VMUX_SESSION_PREFIX}}
     done
 }
+
+ensure_nvim_socket(){
+    if [ -S "$1" ]; then
+        rm -f $1;
+    fi
+}
