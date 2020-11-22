@@ -34,6 +34,9 @@ case "$1" in
     --help|-h)
         cli_help
         ;;
+    --list|-ls)
+        "$VMUXCLI_WORKDIR/commands/list" $@
+        ;;
     --attach|-a)
         "$VMUXCLI_WORKDIR/commands/attach" $@
         ;;

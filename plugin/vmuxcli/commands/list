@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+set -e
+. "$VMUXCLI_WORKDIR/config.shlib"
+
+cli_help_list(){
+    echo "
+    Command: -ls, --list
+
+    Usage:
+    vmux -ls    List all vmux sessions. The vmux session is an abduco session
+                with a prefix name.
+    "
+    exit 1
+}
+
+list(){
+    read_config
+    mapfile -t abduco_list < <( abduco -l | grep "$VMUX_SESSION_PREFIX" )
+    echo "VMUX Active sessions on localhost:"
+    for i in ${!abduco_list[@]}; do
+        session_name=$(echo ${abduco_list[i]} | grep -ow "\w*$VMUX_SESSION_PREFIX\w*" )
+        full_session="${abduco_list[i]::-${#session_name}} ${session_name:${#VMUX_SESSION_PREFIX}}"
+        echo $full_session
+    done
+}
+
+case "$2" in
+    --help|-h)
+        cli_help_list
+        ;;
+esac
+
+list
