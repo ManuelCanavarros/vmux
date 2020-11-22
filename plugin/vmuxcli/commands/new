@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+set -e
+. "$VMUXCLI_WORKDIR/config.shlib"
+. "$VMUXCLI_WORKDIR/common"
+
+cli_help_new(){
+    echo "
+    Command: -n, --new
+
+    Usage:
+    vmux -n [session_name]      Create a new session with the given name.
+    "
+    exit 1
+}
+
+create_session(){
+    get_all_session
+    if [[ "${VMUX_SESSIONS[@]}" =~ "$1" ]]; then
+        echo "The session name: "$1" is already being used. Please attach to it with --attach or type --help for more information"
+        exit 1
+    fi
+
+    read_config
+    server_file="$VMUX_TMP_PATH/$VMUX_SESSION_PREFIX$1"
+    session_name="$VMUX_SESSION_PREFIX$1"
+    abduco -e "$VMUX_DETACH_KEY" \
+        -c "$session_name" nvim --cmd "let g:vmux_active_session = 1" \
+        --cmd "let g:vmux_server_addr = serverstart('$server_file')"
+}
+
+case "$2" in
+    --help|-h)
+        cli_help_new
+        ;;
+esac
+
+create_session $2
