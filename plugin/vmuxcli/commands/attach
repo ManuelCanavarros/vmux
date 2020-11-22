@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+set -e
+. "$VMUXCLI_WORKDIR/config.shlib"
+. "$VMUXCLI_WORKDIR/common"
+
+cli_help_attach(){
+    echo "
+    Command: -a, --attach
+
+    Usage:
+    vmux -a [session_name]      Attach to an existent sessions by name.
+    "
+    exit 1
+}
+
+attach(){
+    get_all_session
+    if [[ ! "${VMUX_SESSIONS[@]}" =~ "$1" ]]; then
+        echo "Could not find session: $1"
+        exit 1
+    fi
+
+    read_config
+    server_file="$VMUX_TMP_PATH/$VMUX_SESSION_PREFIX$1"
+    session_name="$VMUX_SESSION_PREFIX$1"
+    abduco -e "$VMUX_DETACH_KEY" \
+        -a "$session_name" nvim --cmd "let g:vmux_active_session = 1" \
+        --cmd "let g:vmux_server_addr = serverstart('$server_file')"
+}
+
+case "$2" in
+    --help|-h)
+        cli_help_attach
+        ;;
+esac
+
+attach $2

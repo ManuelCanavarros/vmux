@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -e
+. "$VMUXCLI_WORKDIR/config.shlib"
+
+get_all_session(){
+    read_config
+    mapfile -t sessions_long < <( abduco -l | grep -oh "\w*$VMUX_SESSION_PREFIX\w*" )
+    VMUX_SESSIONS=()
+    for i in ${!sessions_long[@]}; do
+        VMUX_SESSIONS+=${sessions_long[i]:${#VMUX_SESSION_PREFIX}}
+    done
+}
