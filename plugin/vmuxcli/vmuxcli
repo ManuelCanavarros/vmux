@@ -6,7 +6,7 @@ cli_help(){
     cli_name=${0##*/}
     echo "
     $cli_name
-    NVIM + ABDUCO wrapper for nvim multiplezer
+    NVIM + ABDUCO wrapper for nvim multiplexer
     Version: $(cat $VMUXCLI_WORKDIR/VERSION)
 
     Usage: 
@@ -14,17 +14,18 @@ cli_help(){
     $cli_name [command] [options]
 
     Commands:
-        -n, --new       Start a new session and jump to it
-        -a, --attach    Attach to an existent session by name
-        -ls, --list     List all sessions
-        -k, -kill       Kill session by name
-        -h, --help      Display this message
+        -n, --new       Start a new session.
+        -a, --attach    Attach to an existent session by name.
+        -ls, --list     List all sessions.
+        -k, -kill       Kill session by name.
+        -h, --help      Display this message.
 
     Examples:
-        vmux django     Start a new session called django if one with this name
-                        does not exist yet
+        vmux code       Start a new session called code if one session with
+                        this name does not exist yet, otherwise attach to this
+                        session.
         vmux -n test    Start a new session called test if session name is
-                        available
+                        available.
     "
     exit 1
 }
