@@ -43,6 +43,9 @@ case "$1" in
     --new|-n)
         "$VMUXCLI_WORKDIR/commands/new" $@
         ;;
+    --kill|-k)
+        "$VMUXCLI_WORKDIR/commands/kill" $@
+        ;;
     "")
         cli_help
         ;;
