@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -e
-export VMUXCLI_WORKDIR=$(cd $(dirname $0) && pwd)
+export VMUXCLI_WORKDIR=$(cd $(dirname "$BASH_SOURCE") && pwd)
 
 cli_help(){
     cli_name=${0##*/}
