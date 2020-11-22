@@ -2,30 +2,13 @@
 set -e
 . "$VMUXCLI_WORKDIR/config.shlib"
 
-cli_help_create_or_attach(){
-    echo "
-    Command: *
-
-    Usage:
-    vmux *   Create a new session or attach to an existent one
-    "
-    exit 1
-}
-
 create_or_attach(){
     read_config
-    server_file="$VMUX_TEMP_PATH$1"
+    server_file="$VMUX_TMP_PATH/$VMUX_SESSION_PREFIX$1"
     session_name="$VMUX_SESSION_PREFIX$1"
     abduco -e "$VMUX_DETACH_KEY" \
         -A "$session_name" nvim --cmd "let g:vmux_active_session = 1" \
         --cmd "let g:vmux_server_addr = serverstart('$server_file')"
 }
 
-case "$1" in
-    --help|-h)
-        cli_help_create_or_attach
-        ;;
-    *)
-        create_or_attach $1
-        ;;
-esac
+create_or_attach $1
