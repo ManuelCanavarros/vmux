@@ -11,7 +11,20 @@ endif
 if g:vmux_active_session
     au TermOpen * VmuxReloadServer
 endif
+
+" FUNCTIONS
 function! VmuxDoneEditing()
   execute(":x")
   let l:s = system("touch " . g:vmux_done_file_path)
 endfunction
+
+function! VmuxReloadServer()
+    if exists("g:vmux_server_addr")
+        call serverstop(g:vmux_server_addr)
+        call serverstart(g:vmux_server_addr)
+    endif
+endfunction
+
+" COMMANDS
+command! VmuxDoneEditing call VmuxDoneEditing()
+command! VmuxReloadServer call VmuxReloadServer()
