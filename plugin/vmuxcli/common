@@ -7,7 +7,7 @@ get_all_session(){
     mapfile -t sessions_long < <( abduco -l | grep -oh "\w*$VMUX_SESSION_PREFIX\w*" )
     VMUX_SESSIONS=()
     for i in ${!sessions_long[@]}; do
-        VMUX_SESSIONS+=${sessions_long[i]:${#VMUX_SESSION_PREFIX}}
+        VMUX_SESSIONS+=( ${sessions_long[i]:${#VMUX_SESSION_PREFIX}} )
     done
 }
 

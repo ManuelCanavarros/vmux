@@ -10,6 +10,7 @@ export VMUX_EDITOR
 [ -z "$VMUX_SERVER_FILE" ] && return
 # specific stuff to vmux session
 export EDITOR=vmux-editor
+export PATH="$PATH:$(dirname "$BASH_SOURCE")/commands"
 cd() {  
   builtin cd "$@";
   vmux_send :cd "$PWD"
