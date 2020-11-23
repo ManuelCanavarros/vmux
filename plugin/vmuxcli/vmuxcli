@@ -50,6 +50,6 @@ case "$1" in
         cli_help
         ;;
     *)
-        "$VMUXCLI_WORKDIR/commands/create_or_attach" $@
+        "$VMUXCLI_WORKDIR/commands/create_or_attach" $1 "A"
 esac
 
