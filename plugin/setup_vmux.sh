@@ -1,12 +1,13 @@
+#!/usr/bin/env bash
 export PATH="$PATH:$(dirname "$BASH_SOURCE")"
-if [ $# -gt 0 ]
-then
+VMUX_PATH="$(dirname "$BASH_SOURCE")"
+export VMUXCLI_WORKDIR=$VMUX_PATH/vmuxcli
   VMUX_EDITOR="$1"
 else
-  VMUX_EDITOR="nvim"
-fi
+VMUX_EDITOR="nvim"
 export VMUX_EDITOR
-[ -z "$vmux_server_file" ] && return
+
+[ -z "$VMUX_SERVER_FILE" ] && return
 # specific stuff to vmux session
 export EDITOR=vmux-editor
 cd() {  

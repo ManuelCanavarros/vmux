@@ -1,4 +1,3 @@
 #!/usr/bin/env bash
 set -e
-VMUX_PATH="$(dirname "$BASH_SOURCE")"
-source $VMUX_PATH/vmuxcli/vmuxcli $@
+source $VMUXCLI_WORKDIR/vmuxcli $@
