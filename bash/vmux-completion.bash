@@ -29,12 +29,11 @@ _vmux_completion(){
     get_all_session
     local vmux_session_words=$(echo "${VMUX_SESSIONS[@]}")
     local suggestions=( $(compgen -W "${vmux_session_words}" -- "${COMP_WORDS[1]}") )
-    if [ "${#suggestions[@]}" > 0 ]; then
+    if [ "${#suggestions[@]}" -gt 0 ]; then
         COMPREPLY=("${suggestions[@]}")
     else
         COMPREPLY=()
     fi
-    return 0
 }
 
 complete -F _vmux_completion vmux
