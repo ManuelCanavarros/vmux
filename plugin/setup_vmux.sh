@@ -2,7 +2,7 @@
 export PATH="$PATH:$(dirname "$BASH_SOURCE")"
 VMUX_PATH="$(dirname "$BASH_SOURCE")"
 export VMUXCLI_WORKDIR=$VMUX_PATH/vmuxcli
-source $VMUX_PATH/vmux-completion
+source $VMUX_PATH/vmux-completion.bash
 
 VMUX_EDITOR="nvim"
 export VMUX_EDITOR
