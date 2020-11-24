@@ -14,7 +14,8 @@ create_or_attach(){
     fi
     VMUX_SERVER_FILE=$server_file abduco -e "$VMUX_DETACH_KEY" \
         -$2 "$session_name" nvim --cmd "let g:vmux_active_session = 1" \
-        --cmd "let g:vmux_server_addr = serverstart('$server_file')"
+        --cmd "let g:vmux_server_addr = serverstart('$server_file')" \
+        --cmd "let g:vmux_session_name = '$1'"
 }
 
 create_or_attach $@

@@ -25,6 +25,13 @@ function! VmuxReloadServer()
     endif
 endfunction
 
+function! VmuxSession()
+    if g:vmux_active_session
+        return "VMUX:". g:vmux_session_name
+    endif
+    return ""
+endfunction
+
 " COMMANDS
 command! VmuxDoneEditing call VmuxDoneEditing()
 command! VmuxReloadServer call VmuxReloadServer()
