@@ -1,8 +1,6 @@
-# vmux
+# VMUX
 
-Helper to use neovim as a terminal multiplexer
-
-[![screencast](doc/screencast.png)](https://asciinema.org/a/RFV64c2xgU2rmTH1GTBfaVwe5)
+Helper to use neovim as a terminal multiplexer. build on top of abduco.
 
 # install
 
@@ -11,40 +9,23 @@ First, you need to install [abduco](https://github.com/martanne/abduco).
 Add and install the following vim plugin: 
 
 ```
-Plug 'yazgoo/vmux'
+Plug 'mcanavarros/vmux'
 ```
 
 Then add the following to your .zshrc or .bashrc
 
 ```
-source ~/.config/nvim/plugged/vmux/plugin/setup_vmux.sh
+source ~/.config/nvim/plugged/vmux/bash/setup_vmux.sh
 ```
 
-Or if you want to use vim instead of nvim:
-
-```
-source ~/.config/nvim/plugged/vmux/plugin/setup_vmux.sh vim
-```
-
-# usage
+# Usage
 
 Run `vmux` for vmux command usage help
 Run `:help vmux` from within vim for more in depth help.
 
-# detaching
+# Detaching
 
-You can detach from the session with ^g
+You can detach from the session with ^\
 
-# customizing
-
-Having a nice tabbar (based on [Caagr98/c98tabbar.vim](https://github.com/Caagr98/c98tabbar.vim)):
-
-```
-Plug 'git@github.com:yazgoo/c98tabbar.vim'
-Plug 'yazgoo/vmux-c98tabbar'
-```
-
-Leave terminal insert mode by typing `jj`: 
-```
-tnoremap jj <C-\><C-n>
-```
+# Acknowledgment
+This project was forked from [yazgoo/vmux](https://github.com/yazgoo/vmux)
