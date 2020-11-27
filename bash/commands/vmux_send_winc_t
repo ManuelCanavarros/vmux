@@ -1,7 +1,10 @@
+. "$VMUXCLI_WORKDIR/config.shlib"
+read_config
+COMMANDS_PATH="$(dirname "$BASH_SOURCE")"
 caller=$(basename $0)
 # make sure the shell and vim working directory are aligned
 for file in $*
 do
-  vmux_send :cd $PWD
-  vmux_send "winc t|${caller:1} $file"
+  eval $VMUX_PYTHON_PATH $COMMANDS_PATH/vmux_send :cd $PWD
+  eval $VMUX_PYTHON_PATH $COMMANDS_PATH/vmux_send "winc t|${caller:1} $file"
 done
