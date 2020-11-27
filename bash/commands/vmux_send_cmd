@@ -1,3 +1,6 @@
+. "$VMUXCLI_WORKDIR/config.shlib"
+read_config
+COMMANDS_PATH="$(dirname "$BASH_SOURCE")"
 # make sure the shell and vim working directory are aligned
-vmux_send :cd $PWD
-vmux_send :$(basename $0) "$@"
+eval $VMUX_PYTHON_PATH $COMMANDS_PATH/vmux_send :cd $PWD
+eval $VMUX_PYTHON_PATH $COMMANDS_PATH/vmux_send :$(basename $0) "$@"
