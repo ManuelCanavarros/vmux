@@ -1,0 +1,4 @@
+vmux_tmp_path=/tmp
+vmux_session_prefix=vmux-
+vmux_detach_key=^\\
+vmux_python_path=python
