@@ -5,6 +5,6 @@ caller=$(basename $0)
 # make sure the shell and vim working directory are aligned
 for file in $*
 do
-  eval $VMUX_PYTHON_PATH $COMMANDS_PATH/vmux_send :cd $PWD
-  eval $VMUX_PYTHON_PATH $COMMANDS_PATH/vmux_send "winc t|${caller:1} $file"
+  eval $VMUX_PYTHON_PATH $COMMANDS_PATH/vmux_send.py :cd $PWD
+  eval $VMUX_PYTHON_PATH $COMMANDS_PATH/vmux_send.py "winc t|${caller:1} $file"
 done
