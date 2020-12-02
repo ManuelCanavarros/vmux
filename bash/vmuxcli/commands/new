@@ -2,30 +2,30 @@
 set -e
 . "$VMUXCLI_WORKDIR/common"
 
-cli_help_new(){
-    echo "
-    Command: -n, --new
+cli_help_new() {
+	echo "
+    Command: n, new
 
     Usage:
     vmux -n [session_name]      Create a new session with the given name.
     "
-    exit 1
+	exit 1
 }
 
-create_session(){
-    get_all_session
-    if [[ "${VMUX_SESSIONS[@]}" =~ "$1" ]]; then
-        echo "The session name: "$1" is already being used. Please attach to it with --attach or type --help for more information"
-        exit 1
-    fi
+create_session() {
+	get_all_session
+	if [[ "${VMUX_SESSIONS[@]}" =~ "$1" ]]; then
+		echo "The session name: "$1" is already being used. Please attach to it with --attach or type --help for more information"
+		exit 1
+	fi
 
-    "$VMUXCLI_WORKDIR/commands/create_or_attach" $1 "c"
+	"$VMUXCLI_WORKDIR/commands/create_or_attach" "$1" "c"
 }
 
 case "$2" in
-    --help|-h)
-        cli_help_new
-        ;;
+--help | -h)
+	cli_help_new
+	;;
 esac
 
-create_session $2
+create_session "$2"

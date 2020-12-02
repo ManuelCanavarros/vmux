@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 set -e
 
-cli_help(){
-    cli_name=${0##*/}
-    echo "
+cli_help() {
+	cli_name=${0##*/}
+	echo "
     $cli_name
     NVIM + ABDUCO wrapper for nvim multiplexer
-    Version: $(cat $VMUXCLI_WORKDIR/VERSION)
+    Version: $(cat "$VMUXCLI_WORKDIR"/VERSION)
 
     Usage: 
     $cli_name [session name]      Start a new session or attach to existent one
@@ -26,30 +26,30 @@ cli_help(){
         vmux new test   Start a new session called test if session name is
                         available.
     "
-    exit 1
+	exit 1
 }
 
 shopt -s extglob
 case "$1" in
-    help|h)
-        cli_help
-        ;;
-    list|ls)
-        "$VMUXCLI_WORKDIR/commands/list" $@
-        ;;
-    attach|a)
-        "$VMUXCLI_WORKDIR/commands/attach" $@
-        ;;
-    new|n)
-        "$VMUXCLI_WORKDIR/commands/new" $@
-        ;;
-    kill|k)
-        "$VMUXCLI_WORKDIR/commands/kill" $@
-        ;;
-    "")
-        cli_help
-        ;;
-    !(-*))
-        "$VMUXCLI_WORKDIR/commands/create_or_attach" $1 "A"
+help | h)
+	cli_help
+	;;
+list | ls)
+	"$VMUXCLI_WORKDIR/commands/list" "$@"
+	;;
+attach | a)
+	"$VMUXCLI_WORKDIR/commands/attach" "$@"
+	;;
+new | n)
+	"$VMUXCLI_WORKDIR/commands/new" "$@"
+	;;
+kill | k)
+	"$VMUXCLI_WORKDIR/commands/kill" "$@"
+	;;
+"")
+	cli_help
+	;;
+!(-*))
+	"$VMUXCLI_WORKDIR/commands/create_or_attach" "$1" "A"
+	;;
 esac
-

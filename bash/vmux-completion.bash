@@ -15,10 +15,10 @@ read_config(){
 }
 get_all_session(){
     read_config
-    mapfile -t sessions_long < <( abduco -l | grep -oh "\w*$VMUX_SESSION_PREFIX\w*" )
+    mapfile -t sessions_long < <( abduco -l | grep -ow "$VMUX_SESSION_PREFIX.*" )
     VMUX_SESSIONS=()
-    for i in ${!sessions_long[@]}; do
-        VMUX_SESSIONS+=( ${sessions_long[i]:${#VMUX_SESSION_PREFIX}} )
+    for i in "${!sessions_long[@]}"; do
+        VMUX_SESSIONS+=( "${sessions_long[i]:${#VMUX_SESSION_PREFIX}}" )
     done
 }
 
@@ -27,7 +27,7 @@ _vmux_completion(){
         return
     fi
     get_all_session
-    local vmux_session_words=$(echo "${VMUX_SESSIONS[@]}")
+    local vmux_session_words=$"${VMUX_SESSIONS[@]}"
     local suggestions=( $(compgen -W "${vmux_session_words}" -- "${COMP_WORDS[1]}") )
     if [ "${#suggestions[@]}" -gt 0 ]; then
         COMPREPLY=("${suggestions[@]}")

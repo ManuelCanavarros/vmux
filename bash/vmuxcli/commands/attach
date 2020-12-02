@@ -2,30 +2,30 @@
 set -e
 . "$VMUXCLI_WORKDIR/common"
 
-cli_help_attach(){
-    echo "
-    Command: -a, --attach
+cli_help_attach() {
+	echo "
+    Command: a, attach
 
     Usage:
     vmux -a [session_name]      Attach to an existent sessions by name.
     "
-    exit 1
+	exit 1
 }
 
-attach(){
-    get_all_session
-    if [[ ! "${VMUX_SESSIONS[@]}" =~ "$1" ]]; then
-        echo "Could not find session: $1"
-        exit 1
-    fi
+attach() {
+	get_all_session
+	if [[ ! "${VMUX_SESSIONS[@]}" =~ "$1" ]]; then
+		echo "Could not find session: $1"
+		exit 1
+	fi
 
-    "$VMUXCLI_WORKDIR/commands/create_or_attach" $1 "a"
+	"$VMUXCLI_WORKDIR/commands/create_or_attach" "$1" "a"
 }
 
 case "$2" in
-    --help|-h)
-        cli_help_attach
-        ;;
+--help | -h)
+	cli_help_attach
+	;;
 esac
 
-attach $2
+attach "$2"

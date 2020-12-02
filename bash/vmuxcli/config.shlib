@@ -1,19 +1,19 @@
 #!/usr/bin/env bash
 config_read_file() {
-    (grep -E "^${2}=" -m 1 "${1}" 2>/dev/null || echo "VAR=__UNDEFINED__") | head -n 1 | cut -d '=' -f 2-;
+	(grep -E "^${2}=" -m 1 "${1}" 2>/dev/null || echo "VAR=__UNDEFINED__") | head -n 1 | cut -d '=' -f 2-
 }
 
 config_get() {
-    val="$(config_read_file ~/vmux_config.cfg "${1}")";
-    if [ "${val}" = "__UNDEFINED__" ]; then
-        val="$(config_read_file $VMUXCLI_WORKDIR/vmux_config.cfg.defaults "${1}")";
-    fi
-    printf -- "%s" "${val}";
+	val="$(config_read_file ~/vmux_config.cfg "${1}")"
+	if [ "${val}" = "__UNDEFINED__" ]; then
+		val="$(config_read_file "$VMUXCLI_WORKDIR"/vmux_config.cfg.defaults "${1}")"
+	fi
+	printf -- "%s" "${val}"
 }
 
-read_config(){
-    eval "VMUX_TMP_PATH="$(config_get vmux_tmp_path)""
-    VMUX_SESSION_PREFIX="$(config_get vmux_session_prefix)"
-    VMUX_DETACH_KEY="$(config_get vmux_detach_key)"
-    VMUX_PYTHON_PATH=$(config_get vmux_python_path)
+read_config() {
+	eval "VMUX_TMP_PATH="$(config_get vmux_tmp_path)""
+	VMUX_SESSION_PREFIX="$(config_get vmux_session_prefix)"
+	VMUX_DETACH_KEY="$(config_get vmux_detach_key)"
+	VMUX_PYTHON_PATH=$(config_get vmux_python_path)
 }

@@ -3,33 +3,33 @@ set -e
 . "$VMUXCLI_WORKDIR/config.shlib"
 . "$VMUXCLI_WORKDIR/common"
 
-cli_help_kill(){
-    echo "
-    Command: -k, --kill
+cli_help_kill() {
+	echo "
+    Command: k, kill
 
     Usage:
     vmux -k [session_name]   Kill vmux session by name and run list after
     "
-    exit 1
+	exit 1
 }
 
-kill_session(){
-    get_all_session
-    if [[ ! "${VMUX_SESSIONS[@]}" =~ "$1" ]]; then
-        echo "Could not find session: $1"
-        exit 1
-    fi
-    read_config
-    session_pid=$(ps aux | grep abduco | grep -w $VMUX_SESSION_PREFIX$1 | tr -s " " | cut -d " " -f 2)
-    kill -9 $session_pid
-    echo "Killed VMUX session: $1"
-    "$VMUXCLI_WORKDIR/commands/list"
+kill_session() {
+	get_all_session
+	if [[ ! "${VMUX_SESSIONS[@]}" =~ "$1" ]]; then
+		echo "Could not find session: $1"
+		exit 1
+	fi
+	read_config
+	session_pid=$(ps aux | grep abduco | grep -w "$VMUX_SESSION_PREFIX$1" | tr -s " " | cut -d " " -f 2)
+	kill -9 "$session_pid"
+	echo "Killed VMUX session: $1"
+	"$VMUXCLI_WORKDIR/commands/list"
 }
 
 case "$2" in
-    --help|-h)
-        cli_help_kill
-        ;;
+--help | -h)
+	cli_help_kill
+	;;
 esac
 
-kill_session $2
+kill_session "$2"
